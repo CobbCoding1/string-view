@@ -58,12 +58,34 @@ int view_cmp(String_View a, String_View b) {
     return 1;
 }
 
-int view_starts_with(String_View view, char c) {
+int view_starts_with_c(String_View view, char c) {
     return view.data[0] == c;
 }
 
-int view_ends_with(String_View view, char c) {
+int view_starts_with_s(String_View a, String_View b) {
+    String_View compare = view_create(a.data, b.len);
+    return view_cmp(compare, b);
+}
+
+int view_ends_with_c(String_View view, char c) {
     return view.data[view.len-1] == c;
+}
+
+int view_ends_with_s(String_View a, String_View b) {
+    String_View compare = view_create(a.data + a.len - b.len, b.len);
+    return view_cmp(compare, b);
+}
+
+int view_contains(String_View haystack, String_View needle) {
+    if(needle.len > haystack.len) return 0;
+    String_View compare = view_create(haystack.data, needle.len);
+    for(size_t i = 0; i < haystack.len; i++) {
+        compare.data = haystack.data + i;
+        if(view_cmp(needle, compare)) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 size_t view_first_of(String_View view, char target) {
@@ -133,7 +155,20 @@ String_View view_rev(String_View view, char *data, size_t data_s) {
     return result;
 }
 
+size_t view_find(String_View haystack, String_View needle) {
+    if(needle.len > haystack.len) return 0;
+    String_View compare = view_create(haystack.data, needle.len);
+    for(size_t i = 0; i < haystack.len; i++) {
+        compare.data = haystack.data + i;
+        if(view_cmp(needle, compare)) {
+            return i;
+        }
+    }
+    return 0;
+}
+
 int main() {
     String_View view = view_create("hello there sir expand one", sizeof("hello there sir expand one")-1);
-    printf("%d\n", view_ends_with(view, 'e'));
+    String_View sub_view = view_create("on", sizeof("on")-1);
+    printf("%d\n", view_ends_with_s(view, sub_view));
 }
