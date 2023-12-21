@@ -10,6 +10,8 @@ typedef struct {
 } String_View;
 
 #define View_Print "%.*s"
+#define View_Arg(view) (int)view.len, view.data
+#define LITERAL_CREATE(lit) view_create(lit, sizeof(lit)-1)
 
 String_View view_create(char *str, size_t len) {
     String_View view = {
@@ -168,7 +170,8 @@ size_t view_find(String_View haystack, String_View needle) {
 }
 
 int main() {
-    String_View view = view_create("hello there sir expand one", sizeof("hello there sir expand one")-1);
-    String_View sub_view = view_create("on", sizeof("on")-1);
+    String_View view = LITERAL_CREATE("hello there sir expand one");
+    String_View sub_view = LITERAL_CREATE("one");
     printf("%d\n", view_ends_with_s(view, sub_view));
+    printf(""View_Print"\n", View_Arg(view));
 }
