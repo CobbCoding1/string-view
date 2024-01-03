@@ -169,9 +169,6 @@ size_t view_find(String_View haystack, String_View needle) {
     return 0;
 }
 
-int main() {
-    String_View view = LITERAL_CREATE("hello there sir expand one");
-    String_View sub_view = LITERAL_CREATE("one");
-    printf("%d\n", view_ends_with_s(view, sub_view));
-    printf(""View_Print"\n", View_Arg(view));
+int main(void) {
+    return 0;
 }
