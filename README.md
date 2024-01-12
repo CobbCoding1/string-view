@@ -5,6 +5,11 @@
 ./build.sh
 ./main
 ```
+Import into file like this
+```C
+#define VIEW_IMPLEMENTATION
+#include "view.h"
+```
 
 ### Structs
 ```C
