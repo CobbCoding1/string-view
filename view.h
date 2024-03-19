@@ -7,6 +7,10 @@
 #include <ctype.h>
 #include <assert.h>
 
+#ifndef VIEW_MALLOC
+#define VIEW_MALLOC malloc
+#endif
+
 typedef struct {
     char *data;
     size_t len;
@@ -46,7 +50,7 @@ String_View view_create(char *str, size_t len) {
 }
 
 char *view_to_cstr(String_View view) {
-    char *str = malloc(sizeof(char) * view.len+1);
+    char *str = VIEW_MALLOC(sizeof(char) * view.len+1);
     strncpy(str, view.data, view.len);
     str[view.len] = '\0';
     return str;
