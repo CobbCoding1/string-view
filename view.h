@@ -34,6 +34,7 @@ size_t view_first_of(String_View view, char target);
 size_t view_last_of(String_View view, char target);
 size_t view_split(String_View view, char c, String_View *arr, size_t arr_s);
 String_View view_chop(String_View view, char c);
+String_View view_chop_left(String_View view);
 size_t view_find(String_View haystack, String_View needle);
 int view_to_int(String_View view);
 float view_to_float(String_View view);
@@ -172,6 +173,14 @@ String_View view_chop(String_View view, char c) {
         .data = view.data + i,
         .len = view.len - i,
     };
+}
+
+String_View view_chop_left(String_View view) {
+    if(view.len > 0) {
+        view.data++;
+        view.len--;
+    }
+    return view;
 }
 
 size_t view_find(String_View haystack, String_View needle) {
